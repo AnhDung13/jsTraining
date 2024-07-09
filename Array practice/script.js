@@ -96,3 +96,15 @@ function findDuplicate(arr) {
 Write a function with 1 input parameter, an return a new object like this:
 {'face': 2, 'zalo': 3, 'gmail':1} // 2,3,1 are the number of occurrences of 'face', 'zalo', 'gmail' in the array
 */
+function countOccur(arr) {
+  let result = arr.reduce((prev, curr) => {
+    if (!prev[curr]) {
+      prev[curr] = 1;
+    } else {
+      prev[curr] += 1;
+    }
+    return prev;
+  }, {});
+  return result;
+}
+console.log(countOccur(["face", "zalo", "face", "gmail", "zalo", "zalo"]));
