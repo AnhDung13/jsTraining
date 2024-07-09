@@ -51,10 +51,8 @@ function findPairs(sum, arr) {
       }
     }
   }
-  console.log(pairs);
 }
 
-findPairs(9, [1, 7, 9, 2, 5, 3, 8, 5]);
 //4. Get a new array from the given array so that the elements appear only once (implement 2 ways: using Set, not using Set)
 
 //with set
