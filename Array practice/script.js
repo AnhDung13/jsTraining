@@ -107,4 +107,106 @@ function countOccur(arr) {
   }, {});
   return result;
 }
-console.log(countOccur(["face", "zalo", "face", "gmail", "zalo", "zalo"]));
+
+/*
+8. I have an array like this: 
+const arr1 = [{ make: 'audi', model: 'r8', year: '2012' }, { make: 'audi', model: 'rs5', year: '2013' }, 
+{ make: 'ford', model: 'mustang', year: '2012' }, { make: 'ford', model: 'fusion', year: '2015' }, { make: 'kia', model: 'optima', year: '2012' }]
+	Please write a function has 2 input parameters, 1st param is an array like above array, 2nd param is the name of any property in each object of the array.
+*/
+const cars = [
+  { make: "audi", model: "r8", year: "2012" },
+  { make: "audi", model: "rs5", year: "2013" },
+  { make: "ford", model: "mustang", year: "2012" },
+  { make: "ford", model: "fusion", year: "2015" },
+  { make: "kia", model: "optima", year: "2012" },
+];
+
+/*
+9. I have 1 object like this: 
+		const order = {
+			'cart': [
+				{ id: 1, name: "ao dai", amount: 5, price: 100000 },
+				{ id: 2, name: "ao coc", amount: 2, price: 200000 },
+				{ id: 3, name: "quan dai", amount: 3, price: 150000 },
+				{ id: 4, name: "quan coc", amount: 4, price: 130000 },
+			],
+			'customer': 'Name',
+			'address': '12 Giai Phong Street'
+		};
+	Please use only reduce method, and only one time, and return 2 variables: totalOfMoney = 1870000, totalOfAmount = 14;
+*/
+
+const order = {
+  cart: [
+    { id: 1, name: "ao dai", amount: 5, price: 100000 },
+    { id: 2, name: "ao coc", amount: 2, price: 200000 },
+    { id: 3, name: "quan dai", amount: 3, price: 150000 },
+    { id: 4, name: "quan coc", amount: 4, price: 130000 },
+  ],
+  customer: "Name",
+  address: "12 Giai Phong Street",
+};
+
+const bill = order.cart.reduce(
+  (prev, { amount, price }) => {
+    prev.totalofMoney += price * amount;
+    prev.totalofAmount += amount;
+    return prev;
+  },
+  { totalofMoney: 0, totalofAmount: 0 }
+);
+
+const { totalofMoney, totalofAmount } = bill;
+
+// 10. Write 3 methods myMap, myFilter, myReduce (suggestion: use Array.prototype, "this" keyword, and for loop).3 these methods have similar in use and usage as map, filter, reduce of array in JS
+
+Array.prototype.myMap = function (callback) {
+  if (typeof callback !== "function") {
+    return;
+  }
+  let newArr = [];
+  for (let i = 0; i < this.length; i++) {
+    let value = this[i];
+    let result = callback(value, i, this);
+    newArr[newArr.length] = result;
+  }
+  return newArr;
+};
+
+Array.prototype.myFilter = function (callback) {
+  if (typeof callback !== "function") {
+    return;
+  }
+};
+
+Array.prototype.myReduce = function (callback, initialValue) {
+  if (typeof callback !== "function") {
+    return;
+  }
+  let prev = initialValue === undefined ? this[0] : initialValue;
+  for (let i = initialValue === undefined ? 1 : 0; i < this.length; i++) {
+    prev = callback(prev, this[i], i, this);
+  }
+  return prev;
+};
+
+/*
+11. Get a new array, which includes unique elements. Those elements are elements from arrays in each value of object deps below
+	const deps = {
+				'data01':[1,2,3,[12,323]],
+				'data02':[5,8,12],
+				'data03':[5,14,79],
+				'data04':[3,64,105],
+			}
+	=> [1, 2, 3, 12, 323, 5, 8, 14, 79, 64, 105]
+*/
+const deps = {
+  data01: [1, 2, 3, [12, 323]],
+  data02: [5, 8, 12],
+  data03: [5, 14, 79],
+  data04: [3, 64, 105],
+};
+
+const uniqueEl = [...new Set(Object.values(deps).flat(Infinity))];
+console.log(uniqueEl);
