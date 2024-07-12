@@ -113,6 +113,41 @@ function countOccur(arr) {
 const arr1 = [{ make: 'audi', model: 'r8', year: '2012' }, { make: 'audi', model: 'rs5', year: '2013' }, 
 { make: 'ford', model: 'mustang', year: '2012' }, { make: 'ford', model: 'fusion', year: '2015' }, { make: 'kia', model: 'optima', year: '2012' }]
 	Please write a function has 2 input parameters, 1st param is an array like above array, 2nd param is the name of any property in each object of the array.
+  Use example: myFunc('make', arr1);
+	That will return a new object like this (each property is an array, this array includes objects correspond of that property):
+	{
+		"audi": [
+			{
+			"make": "audi",
+			"model": "r8",
+			"year": "2012"
+			},
+			{
+			  "make": "audi",
+			  "model": "rs5",
+			  "year": "2013"
+			}
+		], 
+		"ford": [
+			{
+			  "make": "ford",
+			  "model": "mustang",
+			  "year": "2012"
+			},
+			{
+			  "make": "ford",
+			  "model": "fusion",
+			  "year": "2015"
+			}
+		],
+		"kia": [
+			{
+			  "make": "kia",
+			  "model": "optima",
+			  "year": "2012"
+			}
+		]
+	}
 */
 const cars = [
   { make: "audi", model: "r8", year: "2012" },
@@ -122,6 +157,19 @@ const cars = [
   { make: "kia", model: "optima", year: "2012" },
 ];
 
+function ex8(property, arr) {
+  return arr.reduce((prev, curr) => {
+    let key = curr[property];
+    if (!prev[key]) {
+      prev[key] = [];
+    }
+    prev[key].push(curr);
+
+    return prev;
+  }, {});
+}
+const resultEx8 = ex8("make", cars);
+console.log(resultEx8);
 /*
 9. I have 1 object like this: 
 		const order = {
@@ -209,4 +257,3 @@ const deps = {
 };
 
 const uniqueEl = [...new Set(Object.values(deps).flat(Infinity))];
-console.log(uniqueEl);
